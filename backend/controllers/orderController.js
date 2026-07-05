@@ -2,6 +2,10 @@ import userModel from "../models/userModel.js";
 import orderModel from "../models/orderModel.js";
 import Stripe from "stripe"
 
+if (!process.env.STRIPE_SECRET_KEY) {
+    console.error('Missing STRIPE_SECRET_KEY environment variable. Set STRIPE_SECRET_KEY in your .env or environment.');
+    throw new Error('STRIPE_SECRET_KEY is not set. Provide your Stripe secret key as STRIPE_SECRET_KEY');
+}
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const placeOrder = async(req , res)=>{
